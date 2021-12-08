@@ -21,7 +21,7 @@ for board in boards:
         board.append(column)
 
 called_out_numbers = set()
-winning_order = []
+winning_order = dict()
 for callout in seq:
     called_out_numbers.add(callout)
 
@@ -33,11 +33,8 @@ for callout in seq:
                 board_total = sum(map(int, board))
                 final_score = board_total * int(callout)
 
-                print(f'''
-Board #:        {board_num}
-Board Total:    {board_total}
-Final Callout:  {callout}
-Final Score:    {final_score} ''')
+                if board_num not in winning_order:
+                    winning_order[board_num] = (board_num, board_total, final_score)
 
-                import sys
-                sys.exit()
+print("Part 1:", list(winning_order.values())[0])
+print("Part 2:", list(winning_order.values())[-1])
